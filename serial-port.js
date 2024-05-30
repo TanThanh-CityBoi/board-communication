@@ -1,20 +1,3 @@
-const express = require('express');
-const app = express();
-
-
-const morgan = require('morgan');
-const cors = require('cors');
-const bp = require('body-parser');
-require("dotenv").config();
-
-
-app.use(bp.json())
-app.use(bp.urlencoded({ extended: true }))
-
-app.use(morgan('combined'));
-app.use(cors());
-
-
 const SerialPort = require('serialport').SerialPort;
 const sp = new SerialPort({path: "COM4", baudRate: 115200});
 
@@ -43,20 +26,9 @@ sp.on('data', function(data){
     console.log("🚀 ~ sp.on ~ enc:", enc)
     const arr = new Uint8Array(data);
     console.log("🚀 ~ sp.on ~ arr:", arr)
-    const parsedData = enc.decode(arr)
+    ready = enc.decode(arr)
 
-
-    sp.write(`COM4_REPLY: ${data}`, () => {
-        console.log("com4 returnn")
-    })
-
-    console.log('Data received: ', parsedData);
+    console.log('Data received: ', ready);
+    console.log('data to string: ', data?.toString('utf8'))
 });
 
-
-
-
-//app listen
-app.listen(5000, () => {
-    console.log(`Server is running on port 5000`);
-})
