@@ -4,11 +4,13 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon index.js"
+        "serial": "nodemon serial-port.js",
+        "redis": "nodemon redis.js"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "ioredis": "^5.4.1",
         "nodemon": "^3.1.2",
         "serialport": "^12.0.0"
     }
